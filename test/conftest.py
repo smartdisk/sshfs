@@ -3,12 +3,14 @@ import pytest
 import time
 import re
 
-# If a test fails, wait a moment before retrieving the captured
-# stdout/stderr. When using a server process, this makes sure that we capture
-# any potential output of the server that comes *after* a test has failed. For
-# example, if a request handler raises an exception, the server first signals an
-# error to FUSE (causing the test to fail), and then logs the exception. Without
-# the extra delay, the exception will go into nowhere.
+# If a test fails, wait a moment before retrieving the captured stdout/stderr.
+# When using a server process, this makes sure that we capture any potential
+# output of the server that comes *after* a test has failed. For example, if a
+# request handler raises an exception, the server first signals an error to
+# FUSE (causing the test to fail), and then logs the exception. Without the
+# extra delay, the exception will go into nowhere.
+
+
 @pytest.mark.hookwrapper
 def pytest_pyfunc_call(pyfuncitem):
     outcome = yield

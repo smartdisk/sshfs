@@ -89,7 +89,8 @@ def fuse_test_marker():
     supported, return `pytest.mark.uses_fuse()`.
     """
 
-    skip = lambda x: pytest.mark.skip(reason=x)
+    def skip(reason: str):
+        return pytest.mark.skip(reason=reason)
 
     with subprocess.Popen(
         ["which", "fusermount"], stdout=subprocess.PIPE, universal_newlines=True

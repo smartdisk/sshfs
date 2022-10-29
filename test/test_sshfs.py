@@ -14,7 +14,6 @@ import stat
 import shutil
 import filecmp
 import errno
-from contextlib import contextmanager
 from tempfile import NamedTemporaryFile
 from util import (
     wait_for_mount,
@@ -158,9 +157,9 @@ def test_sshfs(
         tst_truncate_path(mnt_dir)
         tst_truncate_fd(mnt_dir)
         tst_open_unlink(mnt_dir)
-    except:
+    except Exception as exc:
         cleanup(mount_process, mnt_dir)
-        raise
+        raise exc
     else:
         umount(mount_process, mnt_dir)
 
