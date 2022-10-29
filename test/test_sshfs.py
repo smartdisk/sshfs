@@ -35,9 +35,11 @@ with open(TEST_FILE, "rb") as fh:
     TEST_DATA = fh.read()
 
 
-def name_generator(__ctr=[0]):
+def name_generator(__ctr=[0]) -> str:
+    """Generate a fresh filename on each call"""
+
     __ctr[0] += 1
-    return "testfile_%d" % __ctr[0]
+    return f"testfile_{__ctr[0]}"
 
 
 @pytest.mark.parametrize(
@@ -100,7 +102,7 @@ def test_sshfs(
     cmdline = base_cmdline + [
         pjoin(basename, "sshfs"),
         "-f",
-        "localhost:" + src_dir,
+        f"localhost:{src_dir}",
         mnt_dir,
     ]
     if debug:
@@ -113,7 +115,7 @@ def test_sshfs(
     if cache_timeout == 0:
         cmdline += ["-o", "dir_cache=no"]
     else:
-        cmdline += ["-o", "dcache_timeout=%d" % cache_timeout, "-o", "dir_cache=yes"]
+        cmdline += ["-o", f"dcache_timeout={cache_timeout}", "-o", "dir_cache=yes"]
 
     # FUSE Cache
     cmdline += ["-o", "entry_timeout=0", "-o", "attr_timeout=0"]

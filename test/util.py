@@ -46,7 +46,7 @@ def umount(mount_process, mnt_dir):
         if code is not None:
             if code == 0:
                 return
-            pytest.fail("file system process terminated with code %s" % (code,))
+            pytest.fail(f"file system process terminated with code {code}")
         time.sleep(0.1)
         elapsed += 0.1
     pytest.fail("mount process did not terminate")
@@ -98,7 +98,7 @@ def fuse_test_marker():
     try:
         fd = os.open("/dev/fuse", os.O_RDWR)
     except OSError as exc:
-        return skip("Unable to open /dev/fuse: %s" % exc.strerror)
+        return skip(f"Unable to open /dev/fuse: {exc.strerror}")
     else:
         os.close(fd)
 
