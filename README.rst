@@ -1,13 +1,20 @@
-This Project is Orphaned
+This Project is a Fork
 ========================
 
-This project is no longer maintained or developed. Github issue tracking and pull requests have
-therefore been disabled. The mailing list (see below) is still available for use.
+This repository is a fork of the [official
+repository](https://github.com/libfuse/sshfs), which has been orphaned by the
+current maintainer. I (Greg Shuflin) have been using SSHFS for a long time, and
+thought I might try my hand at maintaining it myself in the absence of other
+maintainers.
 
-If you would like to take over this project, you are welcome to do so. Please fork it and
-develop the fork for a while. Once there has been 6 months of reasonable activity, please
-contact Nikolaus@rath.org and I'll be happy to give you ownership of this repository or
-replace with a pointer to the fork.
+Besides being an existing user of SSHFS I have no existing affiliation with the
+sshfs maintainers, and have not previously looked at SSHFS's code. I am
+currently trying to familiarize myself with the codebase as it currently
+exists, and clarify code where I can for to benefit myself and any potential
+other contributors. I make no promises about my own reliability as a
+maintainer, but people should feel free to create Github issues in this repo or
+submit code or documentation patches.
+
 
 
 SSHFS
