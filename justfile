@@ -1,8 +1,6 @@
 default:
     just --list
 
-
-
 build_directory := "build"
 
 build:

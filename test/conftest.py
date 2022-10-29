@@ -16,10 +16,12 @@ def pytest_pyfunc_call(pyfuncitem):
     if failed:
         time.sleep(1)
 
+
 @pytest.fixture()
 def pass_capfd(request, capfd):
-    '''Provide capfd object to UnitTest instances'''
+    """Provide capfd object to UnitTest instances"""
     request.instance.capfd = capfd
+
 
 def check_test_output(capfd):
     (stdout, stderr) = capfd.readouterr()
@@ -31,38 +33,56 @@ def check_test_output(capfd):
     # Strip out false positives
     for (pattern, flags, count) in capfd.false_positives:
         cp = re.compile(pattern, flags)
-        (stdout, cnt) = cp.subn('', stdout, count=count)
+        (stdout, cnt) = cp.subn("", stdout, count=count)
         if count == 0 or count - cnt > 0:
-            stderr = cp.sub('', stderr, count=count - cnt)
+            stderr = cp.sub("", stderr, count=count - cnt)
 
-    patterns = [ r'\b{}\b'.format(x) for x in
-                 ('exception', 'error', 'warning', 'fatal', 'traceback',
-                    'fault', 'crash(?:ed)?', 'abort(?:ed)',
-                    'uninitiali[zs]ed') ]
-    patterns += ['^==[0-9]+== ']
+    patterns = [
+        r"\b{}\b".format(x)
+        for x in (
+            "exception",
+            "error",
+            "warning",
+            "fatal",
+            "traceback",
+            "fault",
+            "crash(?:ed)?",
+            "abort(?:ed)",
+            "uninitiali[zs]ed",
+        )
+    ]
+    patterns += ["^==[0-9]+== "]
     for pattern in patterns:
         cp = re.compile(pattern, re.IGNORECASE | re.MULTILINE)
         hit = cp.search(stderr)
         if hit:
-            raise AssertionError('Suspicious output to stderr (matched "%s")' % hit.group(0))
+            raise AssertionError(
+                'Suspicious output to stderr (matched "%s")' % hit.group(0)
+            )
         hit = cp.search(stdout)
         if hit:
-            raise AssertionError('Suspicious output to stdout (matched "%s")' % hit.group(0))
+            raise AssertionError(
+                'Suspicious output to stdout (matched "%s")' % hit.group(0)
+            )
+
 
 def register_output(self, pattern, count=1, flags=re.MULTILINE):
-    '''Register *pattern* as false positive for output checking
+    """Register *pattern* as false positive for output checking
 
     This prevents the test from failing because the output otherwise
     appears suspicious.
-    '''
+    """
 
     self.false_positives.append((pattern, flags, count))
+
 
 # This is a terrible hack that allows us to access the fixtures from the
 # pytest_runtest_call hook. Among a lot of other hidden assumptions, it probably
 # relies on tests running sequential (i.e., don't dare to use e.g. the xdist
 # plugin)
 current_capfd = None
+
+
 @pytest.fixture(autouse=True)
 def save_cap_fixtures(request, capfd):
     global current_capfd
@@ -71,7 +91,7 @@ def save_cap_fixtures(request, capfd):
     # Monkeypatch in a function to register false positives
     type(capfd).register_output = register_output
 
-    if request.config.getoption('capture') == 'no':
+    if request.config.getoption("capture") == "no":
         capfd = None
     current_capfd = capfd
     bak = current_capfd
@@ -81,6 +101,7 @@ def save_cap_fixtures(request, capfd):
     # simultaneously)
     assert bak is current_capfd
     current_capfd = None
+
 
 @pytest.hookimpl(trylast=True)
 def pytest_runtest_call(item):
