@@ -1,8 +1,8 @@
 This Project is a Fork
 ========================
 
-This repository is a fork of the [official
-repository](https://github.com/libfuse/sshfs), which has been orphaned by the
+This repository is a fork of the `official
+repository <https://github.com/libfuse/sshfs>`_, which has been orphaned by the
 current maintainer. I (Greg Shuflin) have been using SSHFS for a long time, and
 thought I might try my hand at maintaining it myself in the absence of other
 maintainers.
