@@ -40,11 +40,28 @@ def name_generator(__ctr=[0]):
     return "testfile_%d" % __ctr[0]
 
 
-@pytest.mark.parametrize("debug", (False, True))
-@pytest.mark.parametrize("cache_timeout", (0, 1))
-@pytest.mark.parametrize("sync_rd", (True, False))
-@pytest.mark.parametrize("multiconn", (True, False))
-def test_sshfs(tmpdir, debug, cache_timeout, sync_rd, multiconn, capfd):
+@pytest.mark.parametrize(
+    "debug",
+    [pytest.param(False, id="debug=false"), pytest.param(True, id="debug=true")],
+)
+@pytest.mark.parametrize(
+    "cache_timeout",
+    [pytest.param(0, id="cache_timeout=0"), pytest.param(1, id="cache_timeout=1")],
+)
+@pytest.mark.parametrize(
+    "sync_rd",
+    [pytest.param(True, id="sync_rd=true"), pytest.param(False, id="sync_rd=false")],
+)
+@pytest.mark.parametrize(
+    "multiconn",
+    [
+        pytest.param(True, id="multiconn=true"),
+        pytest.param(False, id="multiconn=false"),
+    ],
+)
+def test_sshfs(
+    tmpdir, debug: bool, cache_timeout: int, sync_rd: bool, multiconn: bool, capfd
+) -> None:
 
     # Avoid false positives from debug messages
     # if debug:
