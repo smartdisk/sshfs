@@ -24,6 +24,8 @@ from util import (
     basename,
     fuse_test_marker,
     safe_sleep,
+    os_create,
+    os_open,
 )
 from os.path import join as pjoin
 
@@ -161,19 +163,6 @@ def test_sshfs(
         raise
     else:
         umount(mount_process, mnt_dir)
-
-
-@contextmanager
-def os_open(name, flags):
-    fd = os.open(name, flags)
-    try:
-        yield fd
-    finally:
-        os.close(fd)
-
-
-def os_create(name):
-    os.close(os.open(name, os.O_CREAT | os.O_RDWR))
 
 
 def tst_unlink(src_dir, mnt_dir, cache_timeout):

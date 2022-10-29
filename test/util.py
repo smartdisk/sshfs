@@ -5,8 +5,22 @@ import os
 import stat
 import time
 from os.path import join as pjoin
+from contextlib import contextmanager
 
 basename = pjoin(os.path.dirname(__file__), "..")
+
+
+def os_create(name):
+    os.close(os.open(name, os.O_CREAT | os.O_RDWR))
+
+
+@contextmanager
+def os_open(name, flags):
+    fd = os.open(name, flags)
+    try:
+        yield fd
+    finally:
+        os.close(fd)
 
 
 def wait_for_mount(mount_process, mnt_dir, test_fn=os.path.ismount):
