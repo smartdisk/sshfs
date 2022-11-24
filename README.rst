@@ -15,6 +15,8 @@ other contributors. I make no promises about my own reliability as a
 maintainer, but people should feel free to create Github issues in this repo or
 submit code or documentation patches.
 
+I'm currently in the process of porting SSHFS to Rust. See the
+`rust branch <https://github.com/neunenak/sshfs/tree/rust>`_.
 
 
 SSHFS
