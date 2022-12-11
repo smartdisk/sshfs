@@ -10,6 +10,10 @@ So from a maintenance perspective, we are just here to fix issues, merge PRs, an
 
 Everyone is welcome to create issues or PRs, please do contribute!
 
+<a href="https://repology.org/project/fusefs:sshfs/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/fusefs:sshfs.svg" alt="Packaging status" align="right">
+</a>
+
 # SSHFS
 
 
@@ -101,6 +105,9 @@ $ ninja
 $ python3 -m pytest test/    # optional, but recommended
 $ sudo ninja install
 ```
+
+
+
 
 ## Getting Help
 
