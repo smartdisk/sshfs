@@ -10,9 +10,6 @@ So from a maintenance perspective, we are just here to fix issues, merge PRs, an
 
 Everyone is welcome to create issues or PRs, please do contribute!
 
-<a href="https://repology.org/project/fusefs:sshfs/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/fusefs:sshfs.svg" alt="Packaging status" align="right">
-</a>
 
 # SSHFS
 
@@ -106,9 +103,6 @@ $ python3 -m pytest test/    # optional, but recommended
 $ sudo ninja install
 ```
 
-
-
-
 ## Getting Help
 
 
@@ -118,3 +112,11 @@ https://lists.sourceforge.net/lists/listinfo/fuse-sshfs).
 
 Please report any bugs on the GitHub issue tracker at
 https://github.com/libfuse/libfuse/issues.
+
+## Packaging Status
+
+
+<a href="https://repology.org/project/fusefs:sshfs/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/fusefs:sshfs.svg" alt="Packaging status" >
+</a>
+
