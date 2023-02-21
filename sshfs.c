@@ -26,6 +26,7 @@
 #include <inttypes.h>
 #include <stdint.h>
 #include <errno.h>
+#include <ctype.h>
 #ifndef __APPLE__
 #  include <semaphore.h>
 #endif
@@ -1009,6 +1010,28 @@ static int buf_get_entries(struct buffer *buf, void *dbuf,
 			return err;
 	}
 	return 0;
+}
+
+/* useful for debugging */
+static void DEBUG_hexdump(const void *d, size_t datalen)
+{
+	if (!sshfs.debug) {
+		return;
+	}
+   const uint8_t *data = d;
+    size_t i, j = 0;
+
+    for (i = 0; i < datalen; i += j) {
+	printf("%4zu: ", i);
+	for (j = 0; j < 16 && i+j < datalen; j++)
+	    printf("%02x ", data[i + j]);
+	while (j++ < 16)
+	    printf("   ");
+	printf("|");
+	for (j = 0; j < 16 && i+j < datalen; j++)
+	    putchar(isprint(data[i + j]) ? data[i + j] : '.');
+	printf("|\n");
+    }
 }
 
 static void ssh_add_arg(const char *arg)
@@ -2192,6 +2215,8 @@ static struct request *sftp_request_build(struct conn *conn, struct iovec *iov, 
 	req->conn = conn;
 	req->conn->req_count++;
 	req->len = iov_length(iov, count) + 9;
+	DEBUG("+++++\n%s\n", "[sftp_request_build] iov:");
+	DEBUG_hexdump(iov->iov_base, iov->iov_len);
 	return req;
 }
 
@@ -2222,7 +2247,7 @@ static int sftp_request_send(struct conn *conn, uint8_t type, struct iovec *iov,
 		sshfs.num_sent++;
 		sshfs.bytes_sent += req->len;
 	}
-	DEBUG("[%05i] %s\n", id, type_name(type));
+	DEBUG("[%05i] %s len:%lu count:%lu\n", id, type_name(type), req->len, count);
 	pthread_mutex_unlock(&sshfs.lock);
 
 	err = -EIO;
