@@ -111,7 +111,7 @@ mailing list (subscribe at
 https://lists.sourceforge.net/lists/listinfo/fuse-sshfs).
 
 Please report any bugs on the GitHub issue tracker at
-https://github.com/libfuse/libfuse/issues.
+https://github.com/deadbeefsociety/libfuse/issues.
 
 ## Packaging Status
 
